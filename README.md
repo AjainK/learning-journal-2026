@@ -244,6 +244,8 @@ Think of it like: “Read everything until Enter is pressed”
     strconv.Atoi(input)
     strconv.Itoa(input)
 
+## Day3
+
 ### switch {
     case condition1 : {
         return
@@ -255,3 +257,25 @@ Think of it like: “Read everything until Enter is pressed”
         return
     }
     }
+
+### go mod  
+    go mod init 
+    Creates a new module:
+    go mod init github.com/user/myproject
+    Creates a go.mod file in the current directory
+    Records your module name and Go version
+    Only need to run once per project
+
+    go mod tidy
+    Cleans up dependencies:
+    Adds missing imports (scans code and finds what you're using)
+    Removes unused imports from go.mod
+    Updates go.sum (checksums file for verification)
+    Keeps dependencies in sync with your actual code
+
+### *testing.T
+    *testing.T is a pointer to a struct the Go test runner creates for you — it holds the state of your test (passed/failed/skipped) and gives you methods to log messages and mark failures.
+
+    
+    Why a pointer (*T) and not just T?
+    Because t.Fail(), t.Error() etc. need to modify the test's internal state (mark it failed, record log lines). A pointer lets those methods mutate the real struct — a value copy would throw the changes away.
