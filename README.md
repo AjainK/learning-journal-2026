@@ -15,7 +15,7 @@
 ## Day 1:
 
 ## Topics:
-## Names
+### Names
 ### Declarations: eg Fahrenheit to Celsius  
 ### Packages
     Types of packages:
@@ -51,6 +51,8 @@
     in, err = os.Open(infile) // compile error: no new variables . A short variable declaration must declare atleast one new variable
 
 ### Pointers
+    &variable : give me the memory address of the value this variable is pointing at.
+    *pointer : Give me the value this memory address is pointing at 
     x := 1
     p := &x
     fmt.Println(*p) // "1"
@@ -87,18 +89,18 @@
     } // becomes unreachable and can be recycled and its for the compiler to allocate *y on the stack
 
 ### fmt.Scanln
-#### Behavior
+     Behavior
     Stops at space
     Reads one word at a time
     Leaves leftover input in buffer (danger ⚠️)
     Think of it like: “Read the next word and stop”
 
 ### bufio.Reader
-#### Behavior
-Reads entire line
-Includes spaces
-Includes \n (you trim it)
-Think of it like: “Read everything until Enter is pressed”
+    Behavior
+    Reads entire line
+    Includes spaces
+    Includes \n (you trim it)
+    Think of it like: “Read everything until Enter is pressed”
 
 ### Time
     time.Now() // 2026-04-17 17:51:55.343189 +0530 IST m=+0.000085667
@@ -165,6 +167,13 @@ Think of it like: “Read everything until Enter is pressed”
     eg. cards := []string {"ace of spades","two of hearts"}
         cards = append(cards, "five of diamonds")
     Append function does not modify the existing slice instead it creates a new slice 
+    mySlice := []string{"Hi", "there", "see you"}
+    slice : ptr to head, capacity, length
+            |
+            V  
+    array:  "Hi", "there", "see you"
+
+
     
 ### OO Approach vs Go Approach
     Classes that contain properties, functions like print, shuffle , saveToFile and class instance 
@@ -246,17 +255,35 @@ Think of it like: “Read everything until Enter is pressed”
 
 ## Day3
 
-### switch {
-    case condition1 : {
-        return
-    }
-    case condition2 : {
-        return
-    }
-    default :{
-        return
-    }
-    }
+### switch 
+    In Go you never write `break`. It's implicit — each case stops automatically after it runs. If you want the old C-style fallthrough, you write `fallthrough` explicitly (rare).
+    eg: switch {
+	case n%3 == 0:
+		return "Fizz"
+	case n%5 == 0:
+		return "Buzz"
+	case n%15 == 0:
+		return "FizzBuzz"
+	default:
+		return strconv.Itoa(n)
+
+	}
+
+    eg. switch operator {
+	case "+":
+		return num1 + num2, nil
+	case "-":
+		return num1 - num2, nil
+	case "*":
+		return num1 * num2, nil
+	case "/":
+		if num2 == 0 {
+			return 0, fmt.Errorf("cannot divide by zero")
+		}
+		return num1 / num2, nil
+	default:
+		return 0, fmt.Errorf("invalid operator")
+	}
 
 ### go mod  
     go mod init 
@@ -279,3 +306,34 @@ Think of it like: “Read everything until Enter is pressed”
     
     Why a pointer (*T) and not just T?
     Because t.Fail(), t.Error() etc. need to modify the test's internal state (mark it failed, record log lines). A pointer lets those methods mutate the real struct — a value copy would throw the changes away.
+
+### struct
+    A structure or struct in Golang is a user-defined type that allows to group/combine items of possibly different types into a single type  . Any real-world field entity which has some set of properties/fields can be represented as a struct.
+    Collection of peroperties that are related together
+    eg: type person struct {
+	firstName string
+	lastName  string
+	contactInfo
+    }
+
+    ajain := person{
+		firstName: "Ajain",
+		lastName:  "Krishnan",
+	}
+
+### pass by value
+    When you pass something to a function in Go,
+    👉 Go sends a copy of the value, not the original.
+    Imagine:
+
+    You have a document (original)
+    You give your friend a photocopy
+
+    👉 Your friend edits the copy
+    👉 Your original stays unchanged
+
+### Value Types
+    int, float, string, bool, struct - Use pointers to change these things in a function
+
+ ### Reference Types
+    slices, maps, channels. pointers, functions - Don't worry about pointers with these.
